@@ -1,46 +1,60 @@
-# import MySQLdb
-# from MySQLdb.cursors import DictCursor
-from flask import Flask, render_template
-from database import database as DB
-
-db = ''
-
-def init():
-    global db
-    db = DB()
+import json
+import tensorflow as tf
+from flask import Flask, render_template, request
+import numpy
+from database import Database as DB
 
 app = Flask(__name__)
+model = ""
+tokenizer = ""
+db = ""
+
+
+def init():
+    global model, tokenizer, db
+    model = tf.keras.models.load_model('model/my_model.h5')
+    file = json.load(open('Resources/tokenizer.json'))
+    tokenizer = tf.keras.preprocessing.text.tokenizer_from_json(file)
+    db = DB()
+
 
 @app.route("/")
 def index():
-    arr = (db.get_category('conspiracy')[0])
-    # arr = []
-    # #db.get_category('conspiracy')
-    # for i in range(6):
-    #     arr.append(i+15)
-    return render_template("index.html", misrepresent_0 = arr)
+    conspiracyArr = db.get_category('conspiracy')
+    adhomArr = db.get_category('adhominem')
+    unsubArr = db.get_category('unsubstant')
+
+    return render_template("index.html", adhominem_0 = adhomArr[0], adhominem_1=adhomArr[1],
+                           adhominem_2=adhomArr[2], adhominem_3=adhomArr[3],
+                           adhominem_4=adhomArr[4], adhominem_5=adhomArr[5],
+                           unsubstant_0=unsubArr[0], unsubstant_1=unsubArr[1],
+                           unsubstant_2=unsubArr[2], unsubstant_3=unsubArr[3],
+                           unsubstant_4=unsubArr[4], unsubstant_5=unsubArr[5],
+                           conspiracy_0=conspiracyArr[0], conspiracy_1=conspiracyArr[1],
+                           conspiracy_2=conspiracyArr[2], conspiracy_3=conspiracyArr[3],
+                           conspiracy_4=conspiracyArr[4], conspiracy_5=conspiracyArr[5])
+
+
+@app.route("/predict", methods=['GET', 'POST'])
+def predict():
+    data = request.args.get('data')
+
+    if data is None:
+        return "Got None"
+    else:
+        data = preprocess([data])
+        prediction = str(numpy.round(model.predict(data)[0][0]))
+
+    return prediction
+
+
+def preprocess(data):
+    global tokenizer
+    newData = tokenizer.texts_to_sequences(data)
+    newData = tf.keras.preprocessing.sequence.pad_sequences(newData, 70)
+    return newData
+
 
 if __name__ == "__main__":
     init()
     app.run()
-
-
-'''
-@app.route('/', methods=['GET','POST'])
-def index():
-    if request.method == 'POST':
-        uploaded_file = request.files['file']
-        if uploaded_file.filename != '':
-            image_path = os.path.join('static', uploaded_file.filename)
-            uploaded_file.save(image_path)
-            class_name = model.get_prediction(image_path)
-            result = {
-                'class_name': class_name,
-                'image_path': image_path,
-            }
-            return render_template('result.html', result = result)
-    return render_template('index.html')
-
-if __name__ == '__main__':
-    app.run(debug = True)
-'''

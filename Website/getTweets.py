@@ -33,14 +33,14 @@ def checkKeywords(tweet):
     if len(tweet) <= 0:
         return -1
 
-    keywordsMisrepresent = ["wetter than normal", "snow", "outside", "forecast", "weather", "so much for", "freez",
+    """keywordsMisrepresent = ["wetter than normal", "snow", "outside", "forecast", "weather", "so much for", "freez",
                             "cold", "ClimateChangeiscalledSeasons", "short-term", "short term", "sea level", "ice",
                             "melt", "hot", "arctic", "cool", "FalseAlarm", "eagle", "bird", "hawk", "windturbine",
                             "wind turbine", "windmill", "wind mill", "insect", "endanger", "electric car",
                             "electric vehicle", "tesla", "battery powered car", "battery powered vehicle", "lithium",
                             "trace", "barely", "atmosphere", "coal", "electric", "tax", "pollut", "keystone",
                             "pipeline", "paris", "job", "greenhouse", "temp", "net zero", "impossib", "trillion",
-                            "decept"]
+                            "decept"]"""
 
     keywordsAdhominem = ["demonrat", "demorat", "democrat", "biden", "kamala", "republican", "tories", "tory", "labor",
                          "boris", "barack", "obama", "kerry", "trump", "AOC", "ocasio", "greta", "thunberg", "liberal",
@@ -57,15 +57,15 @@ def checkKeywords(tweet):
                           "PrisonPlanet", "Lockdown", "hoax", "covid", "corona", "virus", "engineer", "concentration",
                           "vaccin", "bank", "emergency", "cult", "Agenda21", "Agenda2030"]
 
-    for i in range(len(keywordsMisrepresent)):  # range(len(keywordsMisrepresent - 1)):
+    """for i in range(len(keywordsMisrepresent)):
         if tweet.lower().find(keywordsMisrepresent[i].lower()) != -1:  # aka it has been found
-            misrepresent += 1
+            misrepresent += 1"""
 
-    for i in range(len(keywordsAdhominem)):
+    for j in range(len(keywordsAdhominem)):
         if tweet.lower().find(keywordsAdhominem[i].lower()) != -1:  # aka it has been found
             adhominem += 1
 
-    for i in range(len(keywordsConspiracy)):
+    for k in range(len(keywordsConspiracy)):
         if tweet.lower().find(keywordsConspiracy[i].lower()) != -1:  # aka it has been found
             conspiracy += 1
 
