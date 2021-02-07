@@ -5,7 +5,7 @@ from MySQLdb.cursors import DictCursor
 class Database:
     def __init__(self):
         print('Attempting to connect...')
-        self.connection = MySQLdb.connect(user = "baccaffb66e822", passwd = "99cfc83e", db = "heroku_8d712e26b0e3972", host = "us-cdbr-east-03.cleardb.com", cursorclass = DictCursor)
+        self.connection = MySQLdb.connect(user = "uname", passwd = "pword", db = "db", host = "localhost", cursorclass = DictCursor)
         self.cursor1 = self.connection.cursor()
         print('Connected')
     
