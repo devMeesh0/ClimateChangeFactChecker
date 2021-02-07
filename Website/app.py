@@ -13,7 +13,7 @@ db = ""
 def init():
     global model, tokenizer, db
     model = tf.keras.models.load_model('model/my_model.h5')
-    file = json.load(open('Resources/tokenizer.json'))
+    file = json.load(open('tokenizer.json'))
     tokenizer = tf.keras.preprocessing.text.tokenizer_from_json(file)
     db = DB()
 
