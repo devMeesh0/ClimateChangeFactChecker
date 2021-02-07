@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Climate Change</title>
+    <style>
+        .carousel-container{
+            padding: 5px 5px 5px 5px;
+            height: 110px;
+            margin-bottom: 18px;
+        }
+
+        .tweet_container{
+            padding: 2px;
+            height: 35px;
+            box-shadow: 0 0 1px 1px black;
+            width: 31.9%;
+            display: inline-block;
+            margin: 0px 5px 0px 5px;
+        }
+
+        .btn-container{
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        button{
+            border-radius: 5px;
+        }
+
+        .hidden{
+            display:none;
+        }
+
+        .category{
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        function nextTweets(elem){
+            var carousel = elem.parentElement.parentElement.children[1];
+
+            var visibleTweets = carousel.getElementsByClassName("visible");
+            console.log(visibleTweets);
+            var curr = visibleTweets[2].nextElementSibling;
+
+            toggleVisibility(visibleTweets[0]);
+            toggleVisibility(visibleTweets[0]);
+            toggleVisibility(visibleTweets[0]);
+
+            for(var i = 0; i < 3; i++){
+                if(curr != null){
+                    toggleVisibility(curr);
+                    curr = curr.nextElementSibling;
+                }
+                else{
+                    toggleVisibility(carousel.children[0]);
+                    curr = carousel.children[0].nextElementSibling;
+                }
+            }
+        }
+
+        function toggleVisibility(elem){
+            elem.className = (elem.className == "tweet_container visible") ? "tweet_container hidden" : "tweet_container visible";
+        }
+    </script>
+</head>
+<body>
+    <div class="carousel-container">
+        <h4 class="category">Category 1</h4>
+        <div class="carousel">
+            <div class="tweet_container visible">
+                {{ cat1_0 }}
+            </div>
+
+            <div class="tweet_container visible">
+                {{ cat1_1 }}
+            </div>
+
+            <div class="tweet_container visible">
+                {{ cat1_2 }}
+            </div>
+
+            <div class="tweet_container hidden">
+                {{ cat1_3 }}
+            </div>
+
+            <div class="tweet_container hidden">
+                {{ cat1_4 }}
+            </div>
+
+            <div class="tweet_container hidden">
+                {{ cat1_5 }}
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="next" onclick="nextTweets(this)">Next &#10095;</button>
+        </div>
+    </div>
+
+    <div class="carousel-container">
+        <h4 class="category">Category 2</h4>
+        <div class="carousel">
+            <div class="tweet_container visible">
+                a
+            </div>
+
+            <div class="tweet_container visible">
+                b
+            </div>
+
+            <div class="tweet_container visible">
+                c
+            </div>
+
+            <div class="tweet_container hidden">
+                d
+            </div>
+
+            <div class="tweet_container hidden">
+                e
+            </div>
+
+            <div class="tweet_container hidden">
+                f
+            </div>
+
+            <div class="tweet_container hidden">
+                g
+            </div>
+
+            <div class="tweet_container hidden">
+                h
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="next" onclick="nextTweets(this)">Next &#10095;</button>
+        </div>
+    </div>
+</body>
+</html>
